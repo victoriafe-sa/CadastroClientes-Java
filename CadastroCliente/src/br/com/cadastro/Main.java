@@ -10,7 +10,7 @@ public class Main{
         Scanner scanner = new Scanner(System.in);
         int opcao = 0;
 
-        while (opcao != 7) {
+        while (opcao != 8) {
             System.out.println("\n=== Menu ===");
             System.out.println("1. Adicionar Cliente");
             System.out.println("2. Listar Clientes");
@@ -150,8 +150,18 @@ public class Main{
     		String status = scanner.nextLine();
     		System.out.print("Placa Veiculo: ");
     		String placaVeiculo = scanner.nextLine();
+    		System.out.print("Marca Veiculo: ");
+    		String marcaVeiculo = scanner.nextLine();
+    		System.out.print("Modelo Veiculo: ");
+    		String modeloVeiculo = scanner.nextLine();
+    		System.out.print("Ano do Veiculo: ");
+    		String anoVeiculo = scanner.nextLine();
+    		System.out.print("Chassi do Veiculo: ");
+    		String chassiVeiculo = scanner.nextLine();
+    		System.out.print("KM do Veiculo: ");
+    		String kmVeiculo = scanner.nextLine();
     		
-    		Agendamento agendamento = new Agendamento(nomeCliente, data, hora, status, placaVeiculo);
+    		Agendamento agendamento = new Agendamento(nomeCliente, data, hora, status, placaVeiculo, marcaVeiculo,modeloVeiculo, anoVeiculo, chassiVeiculo, kmVeiculo);
     		cliente.adicionarAgendamento(agendamento);
     		System.out.println("Vistoria agendada com sucesso!");
     	}else {
@@ -185,41 +195,44 @@ public class Main{
     	}
     }
 
-	private static void adicionarItemChecklist (Scanner scanner) {
-		System.out.print("Digite o nome do cliente: ");
-		String nomeCliente = scanner.nextLine();
-		Cliente cliente = null;
-		for (Cliente c : clientes) {
-			if (c.getNome().equalsIgnoreCase (nomeCliente)) {
-				cliente = c;
-				break;
-			}
-		}
-		if (cliente != null) {
-			System.out.print("Digite a data da vistoria (YYYY-MM-DD): ");
-			String dataVistoria = scanner.nextLine();
-			System.out.print("Digite a hora da vistoria (HH:MM): ");
-			String horaVistoria =  scanner.nextLine();
-			System.out.print("Digite a placa do veículo: ");
-			String placaVeiculo = scanner.nextLine();
-			Agendamento agendamento = null;
-			for (Agendamento a : cliente.getAgendamentos()) {
-				if (a.getDataVistoria().equals(dataVistoria) && a.getHoraVistoria().equals(horaVistoria) && a.getPlacaVeiculo().equals(placaVeiculo)) {
-					agendamento = a;
-					break;
-				}
-			} 
-			if (agendamento != null) {
-				System.out.print("Digite a descrição do item do checklist: ");
-				String descricao = scanner.nextLine();
-				ChecklistItem item = new ChecklistItem(descricao);
-				agendamento.adicionarChecklistItem(item);
-				System.out.println("Item adicionado ao checklist com sucesso!");
-			} else {
-				System.out.println("Agendamento não encontrado.");
-			}
-		} else {
-			System.out.println("Cliente não encontrado.");
-		}
-	}
+    private static void adicionarItemChecklist(Scanner scanner) {
+    	System.out.print("Digite o nome do cliente: ");
+    	String nomeCliente = scanner.nextLine();
+    	Cliente cliente = null;
+    	for(Cliente c : clientes) {
+    		if (c.getNome().equalsIgnoreCase(nomeCliente)) {
+    			cliente = c;
+    			break;
+    		}
+    	}
+    	if (cliente != null) {
+    		System.out.print("Digite a data da vistoria (YYYY-MM-DD): ");
+    		String dataVistoria = scanner.nextLine();
+    		System.out.print("Digite a hora da vistoria (HH:MM): ");
+    		String horaVistoria = scanner.nextLine();
+    		System.out.print("Digite a placa do veículo: ");
+    		String placaVeiculo = scanner.nextLine();
+    		
+    	Agendamento agendamento = null;
+    	for (Agendamento a : cliente.getAgendamentos()) {
+    		if(a.getDataVistoria().equals(dataVistoria) && a.getHoraVistoria().equals(horaVistoria) && a.getPlacaVeiculo().equals(placaVeiculo)) {
+    			agendamento = a;
+    			break;
+    		}
+    	}
+    	if (agendamento != null) {
+    		System.out.print("Digite a categoria do item(Exterior, Interior, Motor): ");
+    		String categoria = scanner.nextLine();
+    		System.out.print("Digite a descrição do item do checklist: ");
+    		String descricao = scanner.nextLine();
+    		ChecklistItem item = new ChecklistItem(descricao, categoria);
+    		agendamento.adicionarChecklistItem(item);
+    		System.out.println("Item adicionado ao checklist com sucesso!");
+    	}else {
+    		System.out.println("Agendamento não encontrado. ");
+    	}
+    	}else {
+    		System.out.println("Cliente não encontrado.");
+    	}
+    }
 }

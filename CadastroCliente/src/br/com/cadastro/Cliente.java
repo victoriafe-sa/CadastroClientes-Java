@@ -42,6 +42,7 @@ public class Cliente {
 	public void adicionarVeiculo(Veiculo veiculo) {
 		this.veiculos.add(veiculo);
 	}
+	
 	public ArrayList<Veiculo> getVeiculos1(){ return veiculos;}
 	public void adicionarVeiculo1(Veiculo veiculo) { this.veiculos.add(veiculo);}
 	
